@@ -15,6 +15,7 @@
 #include "LoRaWan_APP.h"
 #include "GXHTC.h"
 #include "board-config.h"
+#include "secrets.h"
 #include "HT_E0213A367.h"
 #include "images.h"
 #include <ArduinoJson.h>
@@ -40,11 +41,9 @@ static inline void wdtKick() { esp_task_wdt_reset(); }
 
 // ---------------------- Time / WiFi ----------------------
 const char* ntpServer = "pool.ntp.org";
+
 const char* tzInfo = "NZST-12NZDT,M9.5.0,M4.1.0/3";
 const char* location = "Auckland";
-const char* ssid = "TheBunns";
-const char* password = "nowisthetime";
-
 // ===== TIMING =====
 static const uint32_t TIME_UPDATE_SEC    = 2UL * 60UL;    // wake every 2 minutes
 static const uint32_t WEATHER_PERIOD_SEC = 30UL * 60UL;   // weather + LoRa every 30 minutes
@@ -87,9 +86,6 @@ const char* openMeteoUrl =
 /********************************************************
  *                  LoRa Settings                       *
  ********************************************************/
-uint8_t devEui[] = { 0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x07, 0x47, 0x0E };
-uint8_t appEui[] = { 0xA3, 0x67, 0x5D, 0x4E, 0x22, 0x31, 0x4A, 0x7B };
-uint8_t appKey[] = { 0x97, 0xB3, 0x54, 0x77, 0xBE, 0x18, 0x09, 0x58, 0x55, 0xBC, 0xF0, 0x3F, 0xF7, 0x77, 0x78, 0xA7 };
 
 uint8_t nwkSKey[16];
 uint8_t appSKey[16];
@@ -594,6 +590,18 @@ static void prepareTxFrame(uint8_t port) {
   appData[appDataSize++] = 0x12;
 
   puc = (unsigned char*)(&tmax_today);
+  appData[appDataSize++] = puc[0];
+  appData[appDataSize++] = puc[1];
+  appData[appDataSize++] = puc[2];
+  appData[appDataSize++] = puc[3];
+
+  // Battery voltage: 0x13 marker + 4-byte little-endian float (read fresh at TX)
+  float vbat = readBatteryVolts();
+  Serial.printf("LoRa battery voltage = %.4f V\n", vbat);
+
+  appData[appDataSize++] = 0x13;
+
+  puc = (unsigned char*)(&vbat);
   appData[appDataSize++] = puc[0];
   appData[appDataSize++] = puc[1];
   appData[appDataSize++] = puc[2];
