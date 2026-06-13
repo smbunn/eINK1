@@ -27,6 +27,7 @@ Arduino-based e-ink weather station project for the Heltec Automation V3 board. 
 | `board-config.h` | Board pin definitions and LoRa region settings |
 | `HT_E0213A367.h` | E-ink display driver (2.13" 367x213 resolution) |
 | `images.h` | Embedded bitmap assets (weather icons, UI elements) |
+| `secrets.h` | Modify this file to add your WiFI details and OTAA for LoRa details
 
 ## Dependencies
 
