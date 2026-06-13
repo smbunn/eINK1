@@ -39,9 +39,11 @@ Arduino-based e-ink weather station project for the Heltec Automation V3 board. 
 ## Deployment
 
 1. Open `weather_station_LoRa_eINK1.ino` in Arduino IDE
-2. Set board to Heltec V3 (ESP32)
-3. Update WiFi credentials in sketch if needed
-4. Compile and upload
+2. Set board to Heltec Vision Master e213
+3. Set your COM port
+4. Set your LoRa region in Tools...LoRa WAN Region
+5. Update WiFi credentials in sketch if needed
+6. Compile and upload
 
 ## Author
 
