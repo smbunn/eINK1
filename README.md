@@ -4,7 +4,7 @@ Arduino-based e-ink weather station project for the Heltec Automation V3 board. 
 
 ## Hardware
 
-- Heltec Automation V3 board (ESP32 + LoRa)
+- Heltec Automation Vision Master e213 (ESP32 + LoRa)
 - E-ink display (HT E0213A367, 2.13" e-ink)
 - Deep sleep power management for battery efficiency
 <img width="8160" height="4590" alt="PXL_20251128_232951582" src="https://github.com/user-attachments/assets/f0a2f27e-7414-4641-8664-cb11e9711027" />
