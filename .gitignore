@@ -1,2 +1,2 @@
-# Secrets - do NOT commit
-secrets.h
+# Real secrets - keep secrets.h locally but don't commit real credentials
+# The committed version is a template with placeholders
